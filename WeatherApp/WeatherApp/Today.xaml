@@ -6,8 +6,9 @@
     
     <VerticalStackLayout VerticalOptions="FillAndExpand">
         <Frame CornerRadius="24"
+               Margin="8, 24, 8, 0"
                Padding="0"
-               BorderColor="Black">
+               BorderColor="Transparent">
             <Image Source="Images/dawn.jpg" Aspect="AspectFill"/>
         </Frame>
         <Grid>
