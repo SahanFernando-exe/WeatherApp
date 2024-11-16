@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WeatherApp.Today"
+             Title="Today">
+    <VerticalStackLayout>
+        <Label x:Name="TestingLabel" BackgroundColor="CadetBlue"></Label>
+        <Grid>
+
+        </Grid>
+        <Grid>
+            
+        </Grid>
+
+        
+        <Grid RowDefinitions="Auto,*">
+            <CollectionView ItemsSource="{Binding HourlyForecasts}"
+                       ItemsLayout="HorizontalList"
+                       SelectionMode="Single"
+                       SelectionChanged="OnHourSelected">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Margin="5"
+                           Padding="10"
+                           CornerRadius="10"
+                           BackgroundColor="{Binding IsSelected, Converter={StaticResource SelectedColorConverter}}">
+                            <StackLayout>
+                                <Label Text="{Binding Time, StringFormat='{0:HH:mm}'}"
+                                   HorizontalOptions="Center"/>
+                                <Image Source="{Binding WeatherIcon}"
+                                   HeightRequest="40"
+                                   WidthRequest="40"
+                                   Aspect="AspectFit"/>
+                                <Label Text="{Binding Temperature, StringFormat='{0}°'}"
+                                   HorizontalOptions="Center"/>
+                            </StackLayout>
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer CommandParameter="{Binding .}"
+                                                  Tapped="OnHourTapped"/>
+                            </Frame.GestureRecognizers>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <!-- Details section for selected hour -->
+            <StackLayout Grid.Row="1" Padding="20">
+                <Label Text="{Binding SelectedHour.Description}"
+                   FontSize="Large"/>
+                <!-- Add more weather details here -->
+            </StackLayout>
+        </Grid>
+        
+        
+        <HorizontalStackLayout>
+            
+        </HorizontalStackLayout>
+    </VerticalStackLayout>
+</ContentPage>

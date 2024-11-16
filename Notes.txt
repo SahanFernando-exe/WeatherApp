@@ -1,0 +1,20 @@
+pages:
+- today
+- this week
+- extra details
+- settings
+
+backgrounds:
+- time of day:
+	- dawn
+	- day
+	- dusk
+	- night
+- weather:
+	- clear
+	- partly cloudy
+	- cloudy
+	- light rain
+	- heavy rain
+	- hail
+	- snow
