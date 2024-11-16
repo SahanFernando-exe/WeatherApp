@@ -2,18 +2,20 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="WeatherApp.Today"
-             Title="Today">
-    <VerticalStackLayout>
-        <Label x:Name="TestingLabel" BackgroundColor="CadetBlue"></Label>
+             NavigationPage.HasNavigationBar="False">
+    
+    <VerticalStackLayout VerticalOptions="FillAndExpand">
+        <Frame CornerRadius="24"
+               Padding="0"
+               BorderColor="Black">
+            <Image Source="Images/dawn.jpg" Aspect="AspectFill"/>
+        </Frame>
         <Grid>
 
         </Grid>
-        <Grid>
-            
-        </Grid>
 
-        
-        <Grid RowDefinitions="Auto,*">
+
+        <Grid Padding="4" RowDefinitions="Auto,*">
             <CollectionView ItemsSource="{Binding HourlyForecasts}"
                        ItemsLayout="HorizontalList"
                        SelectionMode="Single"
@@ -22,16 +24,12 @@
                     <DataTemplate>
                         <Frame Margin="5"
                            Padding="10"
-                           CornerRadius="10"
+                           CornerRadius="8"
                            BackgroundColor="{Binding IsSelected, Converter={StaticResource SelectedColorConverter}}">
                             <StackLayout>
-                                <Label Text="{Binding Time, StringFormat='{0:HH:mm}'}"
+                                <Label FontSize="24" Text="{Binding Time, StringFormat='{0:HH:mm}'}"
                                    HorizontalOptions="Center"/>
-                                <Image Source="{Binding WeatherIcon}"
-                                   HeightRequest="40"
-                                   WidthRequest="40"
-                                   Aspect="AspectFit"/>
-                                <Label Text="{Binding Temperature, StringFormat='{0}°'}"
+                                <Label FontSize="24" Text="{Binding Temp, StringFormat='{0}°'}"
                                    HorizontalOptions="Center"/>
                             </StackLayout>
                             <Frame.GestureRecognizers>
@@ -42,13 +40,6 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-
-            <!-- Details section for selected hour -->
-            <StackLayout Grid.Row="1" Padding="20">
-                <Label Text="{Binding SelectedHour.Description}"
-                   FontSize="Large"/>
-                <!-- Add more weather details here -->
-            </StackLayout>
         </Grid>
         
         

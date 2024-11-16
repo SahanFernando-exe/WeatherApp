@@ -13,7 +13,7 @@ public partial class Today : ContentPage
 
 
     public ObservableCollection<HourlyForecast> HourlyForecasts { get; set; }
-
+    public WeatherData weather_data { get; set; }
     private Meteo_API Weather_API;
     public HourlyForecast SelectedHour { get; set; }
 
@@ -22,6 +22,7 @@ public partial class Today : ContentPage
 		InitializeComponent();
         Weather_API = new Meteo_API();
         HourlyForecasts = new ObservableCollection<HourlyForecast>();
+        weather_data = new WeatherData();
         LoadHourlyData();
         BindingContext = this;
     }
@@ -29,21 +30,18 @@ public partial class Today : ContentPage
 
     private async void LoadHourlyData()
     {
-        WeatherData dats = await Weather_API.GetWeatherDataAsync("gfas");
+        weather_data = await Weather_API.GetWeatherDataAsync("gfas");
         // Sample data - replace with your actual weather API data
         var currentTime = DateTime.Now;
         for (int i = 0; i < 24; i++)
         {
             HourlyForecasts.Add(new HourlyForecast
             {
-                Time = dats.hourly.time[i],
-                Temperature = dats.hourly.temp[i],
-                WeatherIcon = "sunny.png", // Replace with actual weather icon
-                Description = $"Weather details for {currentTime.AddHours(i):HH:mm}"
+                Time = weather_data.hourly.time[i],
+                Temp = weather_data.hourly.temp[i]
             });
         }
-        Console.WriteLine(dats.lat);
-        TestingLabel.Text = dats.current.temp.ToString();
+        Console.WriteLine(weather_data.lat);
     }
 
     private void OnHourSelected(object sender, SelectionChangedEventArgs e)
@@ -59,7 +57,7 @@ public partial class Today : ContentPage
     {
         if (e.Parameter is HourlyForecast tappedHour)
         {
-            // Handle tap event if needed
+            Console.WriteLine("touched" + tappedHour.Time);
         }
     }
 }
@@ -67,9 +65,8 @@ public partial class Today : ContentPage
 public class HourlyForecast : INotifyPropertyChanged
 {
     public DateTime Time { get; set; }
-    public double Temperature { get; set; }
-    public string WeatherIcon { get; set; }
-    public string Description { get; set; }
+    public float Temp { get; set; }
+
     private bool isSelected;
 
     public bool IsSelected

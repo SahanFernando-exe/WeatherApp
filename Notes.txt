@@ -4,6 +4,11 @@ pages:
 - extra details
 - settings
 
+api:
+- location
+- current
+- hourly
+
 backgrounds:
 - time of day:
 	- dawn
@@ -17,4 +22,10 @@ backgrounds:
 	- light rain
 	- heavy rain
 	- hail
-	- snow
+	- *snow
+
+
+inspiration:
+- https://dribbble.com/shots/15342976-Weather-forecast-Mobile-App-Deisign
+- https://dribbble.com/shots/20331883-Concept-Weather
+- https://dribbble.com/shots/17996688-Weather-App
