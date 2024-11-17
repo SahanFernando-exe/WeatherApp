@@ -3,11 +3,13 @@ pages:
 - this week
 - extra details
 - settings
+- weather history
 
 api:
 - location
 - current
 - hourly
+
 
 backgrounds:
 - time of day:
@@ -23,6 +25,15 @@ backgrounds:
 	- heavy rain
 	- hail
 	- *snow
+- method:
+	- sky
+		- clouds
+	- background
+		- foreclouds
+		- solid fog
+	- midground
+		- opaque fog
+	- foreground
 
 
 inspiration:
