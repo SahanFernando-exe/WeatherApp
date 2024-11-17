@@ -3,24 +3,37 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="WeatherApp.Today"
              NavigationPage.HasNavigationBar="False">
-    
-    <VerticalStackLayout VerticalOptions="FillAndExpand">
-        <Frame CornerRadius="24"
-               Margin="8, 24, 8, 0"
-               Padding="0"
-               BorderColor="Transparent">
-            <Image Source="Images/dawn.jpg" Aspect="AspectFill"/>
-        </Frame>
-        <Grid>
+    <ContentPage.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+            <GradientStopCollection>
+                <GradientStop x:Name="SKY_TOP" Offset="0" Color="#ffccff"/>
+                <GradientStop x:Name="SKY_LOW" Offset="0.4" Color="#ddee88"/>
+                <GradientStop x:Name="GROUND_TOP" Offset="0.6" Color="#eeee00"/>
+                <GradientStop x:Name="SGROUND_LOW" Offset="1" Color="#bbbb00"/>
+            </GradientStopCollection>
+        </LinearGradientBrush>
+    </ContentPage.Background>
 
-        </Grid>
-
-
+    <VerticalStackLayout>
+        <AbsoluteLayout>
+            <Image x:Name="SUN_DAWN"/>
+            <Image x:Name="SUN_DAY"/>
+            <Image x:Name="SUN_DUSK"/>
+            <Image x:Name="MOON"/>
+            <Image x:Name="CLOUDS_FAR"/>
+            <Image x:Name="MOUNTAINS"/>
+            <Image x:Name="COULDS_CLOSE"/>
+            <Image x:Name="FOG_FAR"/>
+            <Image x:Name="MEADOWS"/>
+            <Image x:Name="FOG_CLOSE"/>
+            <Image x:Name="TREE" Source="Images/trees.png" WidthRequest="300"/>
+        </AbsoluteLayout>
+        <Label FontSize="24" Text="{Binding weather_data.current.app_temp, StringFormat='feels like {0:F1}°'}"/>
         <Grid Padding="4" RowDefinitions="Auto,*">
             <CollectionView ItemsSource="{Binding HourlyForecasts}"
-                       ItemsLayout="HorizontalList"
-                       SelectionMode="Single"
-                       SelectionChanged="OnHourSelected">
+                            ItemsLayout="HorizontalList"
+                            SelectionMode="Single"
+                            SelectionChanged="OnHourSelected">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Frame Margin="5"
@@ -42,10 +55,10 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </Grid>
-        
-        
+
+
         <HorizontalStackLayout>
-            
+
         </HorizontalStackLayout>
     </VerticalStackLayout>
 </ContentPage>

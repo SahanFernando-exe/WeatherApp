@@ -8,6 +8,9 @@ using System.Net.Http.Json;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
+using System.Runtime.CompilerServices;
+
+
 namespace WeatherApp
 {
     public class Meteo_API
@@ -30,7 +33,10 @@ namespace WeatherApp
             try
             {
                 // Build the URL with query parameters
-                var url = $"{_baseUrl}/forecast?latitude=-31.9522&longitude=115.8614&current=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,rain&hourly=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation_probability,precipitation";
+                var current_parameters = "current=temperature_2m,apparent_temperature,cloud_cover,relative_humidity_2m,precipitation_probability";
+                var hourly_parameters = "hourly=temperature_2m,apparent_temperature,cloud_cover,relative_humidity_2m,precipitation_probability";
+                var url = $"{_baseUrl}/forecast?latitude=-31.9522&longitude=115.8614&{current_parameters}&{hourly_parameters}";
+                Console.WriteLine(url);
                 Console.WriteLine("#######################################_____________________________________________________jchbsdnmbvsmjhgekjhcvjksvdlsbdjklah");
 
                 // Make the API call
@@ -64,6 +70,39 @@ namespace WeatherApp
             }
         }
 
+        public async Task<dynamic> GetSpecWeatherDataAsync(string location, string _params)
+        {
+            try
+            {   // Build the URL with query parameters
+                var url = $"{_baseUrl}/forecast?{location}&{_params}";
+
+                // Make the API call
+                var response = await _httpClient.GetAsync(url);
+
+                // Check if the request was successful
+                response.EnsureSuccessStatusCode();
+                Console.WriteLine("#######################################_____________________________________________________successish");
+                // Deserialize the JSON response
+                dynamic weatherData = await response.Content.ReadFromJsonAsync<dynamic>();
+                Console.WriteLine("#######################################_____________________________________________________success");
+                return weatherData;
+            }
+            catch (HttpRequestException ex)
+            {   // Handle specific HTTP errors
+                Console.WriteLine("#######################################_____________________________________________________1");
+                throw new Exception($"Error fetching weather data: {ex.Message}");
+            }
+            catch (JsonException ex)
+            {   // Handle JSON parsing errors
+                Console.WriteLine("#######################################_____________________________________________________2");
+                throw new Exception($"Error parsing weather data: {ex.Message}");
+            }
+            catch (Exception ex)
+            {   // Handle any other unexpected errors\
+                Console.WriteLine("#######################################_____________________________________________________3");
+                throw new Exception($"Unexpected error: {ex.Message}");
+            }
+        }
     }
 
     // Data models to match your API response
@@ -74,52 +113,34 @@ namespace WeatherApp
 
         [JsonPropertyName("longitude")]
         public float lon { get; set; }
-
-        [JsonPropertyName("current_units")]
-        public CurrentUnits current_units { get; set; }
-
-        [JsonPropertyName("current")]
         public Current current { get; set; }
-
-        [JsonPropertyName("hourly_units")]
-        public HourlyUnits hourly_units { get; set; }
-
-        [JsonPropertyName("hourly")]
         public Hourly hourly { get; set; }
-    }
-
-    public class CurrentUnits
-    {
-        public string time { get; set; }
-        public string interval { get; set; }
-        public string temp { get; set; }
-        public string humidity { get; set; }
-        public string app_temp { get; set; }
-        public string precip { get; set; }
-        public string rain { get; set; }
     }
 
     public class Current
     {
         public string time { get; set; }
-        public int interval { get; set; }
 
         [JsonPropertyName("temperature_2m")]
         public float temp { get; set; }
-        public float humidity { get; set; }
-        public float app_temp { get; set; }
-        public float precip { get; set; }
-        public float rain { get; set; }
-    }
 
-    public class HourlyUnits
-    {
-        public string time { get; set; }
-        public string temp { get; set; }
-        public string humidity { get; set; }
-        public string app_temp { get; set; }
-        public string precip { get; set; }
-        public string rain { get; set; }
+        [JsonPropertyName("apparent_temperature")]
+        public float app_temp { get; set; }
+
+        [JsonPropertyName("cloud_cover")]
+        public float cloud { get; set; }
+
+        [JsonPropertyName("relative_humidity_2m")]
+        public float humidity { get; set; }
+
+        [JsonPropertyName("precipitation_probability")]
+        public float precip { get; set; }
+
+        //[JsonPropertyName("wind_speed_10m")]
+        //public float wind_speed { get; set; }
+
+        //[JsonPropertyName("wind_gusts_10m")]
+        //public float wind_gusts { get; set; }
     }
 
     public class Hourly
@@ -128,9 +149,17 @@ namespace WeatherApp
 
         [JsonPropertyName("temperature_2m")]
         public List<float> temp { get; set; }
-        public List<float> humidity { get; set; }
+
+        [JsonPropertyName("apparent_temperature")]
         public List<float> app_temp { get; set; }
+
+        [JsonPropertyName("cloud_cover")]
+        public List<float> cloud { get; set; }
+
+        [JsonPropertyName("relative_humidity_2m")]
+        public List<float> humidity { get; set; }
+
+        [JsonPropertyName("precipitation_probability")]
         public List<float> precip { get; set; }
-        public List<float> rain { get; set; }
     }
 }
