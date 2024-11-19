@@ -27,6 +27,20 @@ public partial class Today : ContentPage
         BindingContext = this;
     }
 
+    private void UpdateUI(WeatherData weather_data)
+    {
+        //city
+        //apparent temperature
+        //cloud cover
+        //wind
+        //temperature
+        //humidity
+        //rain chance
+        //visibility
+
+    }
+
+
 
     private async void LoadHourlyData()
     {

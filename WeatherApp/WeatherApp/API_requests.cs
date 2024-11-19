@@ -33,21 +33,11 @@ namespace WeatherApp
             try
             {
                 // Build the URL with query parameters
-                var current_parameters = "current=temperature_2m,apparent_temperature,cloud_cover,relative_humidity_2m,precipitation_probability";
+                var current_parameters = "current=temperature_2m,apparent_temperature,cloud_cover,relative_humidity_2m,precipitation_probability,wind_speed_10m,wind_gusts_10m";
                 var hourly_parameters = "hourly=temperature_2m,apparent_temperature,cloud_cover,relative_humidity_2m,precipitation_probability";
                 var url = $"{_baseUrl}/forecast?latitude=-31.9522&longitude=115.8614&{current_parameters}&{hourly_parameters}";
-                Console.WriteLine(url);
-                Console.WriteLine("#######################################_____________________________________________________jchbsdnmbvsmjhgekjhcvjksvdlsbdjklah");
-
-                // Make the API call
                 var response = await _httpClient.GetAsync(url);
-
-                // Check if the request was successful
-                response.EnsureSuccessStatusCode();
-                Console.WriteLine("#######################################_____________________________________________________successish");
-                // Deserialize the JSON response
                 WeatherData weatherData = await response.Content.ReadFromJsonAsync<WeatherData>();
-                Console.WriteLine("#######################################_____________________________________________________success");
                 return weatherData;
             }
             catch (HttpRequestException ex)
@@ -105,7 +95,6 @@ namespace WeatherApp
         }
     }
 
-    // Data models to match your API response
     public class WeatherData
     {
         [JsonPropertyName("latitude")]
@@ -136,11 +125,11 @@ namespace WeatherApp
         [JsonPropertyName("precipitation_probability")]
         public float precip { get; set; }
 
-        //[JsonPropertyName("wind_speed_10m")]
-        //public float wind_speed { get; set; }
+        [JsonPropertyName("wind_speed_10m")]
+        public float wind_speed { get; set; }
 
-        //[JsonPropertyName("wind_gusts_10m")]
-        //public float wind_gusts { get; set; }
+        [JsonPropertyName("wind_gusts_10m")]
+        public float wind_gusts { get; set; }
     }
 
     public class Hourly
