@@ -13,6 +13,7 @@ namespace WeatherApp
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                    fonts.AddFont("AmericanCaptain.otf", "American");
                 });
 
 #if DEBUG

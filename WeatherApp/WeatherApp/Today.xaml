@@ -14,8 +14,28 @@
         </LinearGradientBrush>
     </ContentPage.Background>
 
-    <VerticalStackLayout>
-        <AbsoluteLayout>
+    <VerticalStackLayout Spacing="10" Padding="10">
+        <AbsoluteLayout HeightRequest="400">
+            <Image x:Name="background_img" Source="Images/dawn.jpeg" Aspect="AspectFill"
+                   AbsoluteLayout.LayoutBounds="0.5, 0.5, 1, 1"
+                   AbsoluteLayout.LayoutFlags="All"/>
+            <BoxView Color="Blue"
+                 AbsoluteLayout.LayoutBounds="0.5,0,100,25"
+                 AbsoluteLayout.LayoutFlags="PositionProportional"/>
+            <BoxView Color="Green"
+                 AbsoluteLayout.LayoutBounds="0,0.5,25,100"
+                 AbsoluteLayout.LayoutFlags="PositionProportional"/>
+            <BoxView Color="Red"
+                 AbsoluteLayout.LayoutBounds="1,0.5,25,100"
+                 AbsoluteLayout.LayoutFlags="PositionProportional"/>
+            <BoxView Color="Black"
+                 AbsoluteLayout.LayoutBounds="0.5,1,100,25"
+                 AbsoluteLayout.LayoutFlags="PositionProportional"/>
+            <Label FontSize="24" Text="{Binding weather_data.current.app_temp, StringFormat='feels like {0:F1}°'}" FontFamily="AmericanCaptain"
+               AbsoluteLayout.LayoutBounds="0.5,0.5,110,65"
+               AbsoluteLayout.LayoutFlags="PositionProportional"/>
+            
+            
             <Image x:Name="SUN_DAWN"/>
             <Image x:Name="SUN_DAY"/>
             <Image x:Name="SUN_DUSK"/>
@@ -26,7 +46,7 @@
             <Image x:Name="FOG_FAR"/>
             <Image x:Name="MEADOWS"/>
             <Image x:Name="FOG_CLOSE"/>
-            <Image x:Name="TREE" Source="Images/trees.png" WidthRequest="300"/>
+            <Image x:Name="TREE"/>
         </AbsoluteLayout>
         <Label FontSize="24" Text="{Binding weather_data.current.app_temp, StringFormat='feels like {0:F1}°'}"/>
         <Grid Padding="4" RowDefinitions="Auto,*">
