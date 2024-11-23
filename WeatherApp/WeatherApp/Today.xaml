@@ -3,82 +3,108 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="WeatherApp.Today"
              NavigationPage.HasNavigationBar="False">
+    <!-- gradient background
+    
     <ContentPage.Background>
         <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
             <GradientStopCollection>
-                <GradientStop x:Name="SKY_TOP" Offset="0" Color="#ffccff"/>
-                <GradientStop x:Name="SKY_LOW" Offset="0.4" Color="#ddee88"/>
-                <GradientStop x:Name="GROUND_TOP" Offset="0.6" Color="#eeee00"/>
-                <GradientStop x:Name="SGROUND_LOW" Offset="1" Color="#bbbb00"/>
+                <GradientStop x:Name="SKY_TOP" Offset="0" Color="#202020"/>
+                <GradientStop x:Name="SGROUND_LOW" Offset="1" Color="#202020"/>
             </GradientStopCollection>
         </LinearGradientBrush>
     </ContentPage.Background>
+    
+    -->
 
-    <VerticalStackLayout Spacing="10" Padding="10">
-        <AbsoluteLayout HeightRequest="400">
-            <Image x:Name="background_img" Source="Images/dawn.jpeg" Aspect="AspectFill"
-                   AbsoluteLayout.LayoutBounds="0.5, 0.5, 1, 1"
-                   AbsoluteLayout.LayoutFlags="All"/>
+    <Grid RowDefinitions="*,Auto,Auto,Auto" RowSpacing="10" Padding="10" BackgroundColor="#202020">
+        <AbsoluteLayout VerticalOptions="FillAndExpand" MinimumHeightRequest="300">
+            <Frame CornerRadius="40" 
+                    Padding="-1"
+                    IsClippedToBounds="True"
+                    AbsoluteLayout.LayoutBounds="0.5, 0.5, 1, 1"
+                    AbsoluteLayout.LayoutFlags="All">
+                <Image x:Name="background_img" Source="Images/dawn.jpeg" Aspect="AspectFill"/>
+            </Frame>
+
+            <VerticalStackLayout AbsoluteLayout.LayoutBounds="1,0" AbsoluteLayout.LayoutFlags="PositionProportional">
+                <Label FontSize="48" Text="CITY" FontFamily="American" HorizontalTextAlignment="End"/>
+                <Label FontSize="64" Text="{Binding current.app_temp, StringFormat='{0:F1}°', FallbackValue='apptemp'}" FontFamily="American"/>
+            </VerticalStackLayout>
+            <!--
+        top
             <BoxView Color="Blue"
-                 AbsoluteLayout.LayoutBounds="0.5,0,100,25"
+                 AbsoluteLayout.LayoutBounds="0.5,0,100,10"
                  AbsoluteLayout.LayoutFlags="PositionProportional"/>
+        left
             <BoxView Color="Green"
-                 AbsoluteLayout.LayoutBounds="0,0.5,25,100"
+                 AbsoluteLayout.LayoutBounds="0,0.5,10,80"
                  AbsoluteLayout.LayoutFlags="PositionProportional"/>
+        right
             <BoxView Color="Red"
-                 AbsoluteLayout.LayoutBounds="1,0.5,25,100"
+                 AbsoluteLayout.LayoutBounds="1,0.5,10,150"
                  AbsoluteLayout.LayoutFlags="PositionProportional"/>
+        bottom
             <BoxView Color="Black"
-                 AbsoluteLayout.LayoutBounds="0.5,1,100,25"
+                 AbsoluteLayout.LayoutBounds="0.5,1,100,10"
                  AbsoluteLayout.LayoutFlags="PositionProportional"/>
-            <Label FontSize="24" Text="{Binding weather_data.current.app_temp, StringFormat='feels like {0:F1}°'}" FontFamily="AmericanCaptain"
+            <Label FontSize="24" Text="{Binding current.app_temp, StringFormat='feels like {0:F1}°', FallbackValue='apptemp'}" FontFamily="American"
                AbsoluteLayout.LayoutBounds="0.5,0.5,110,65"
                AbsoluteLayout.LayoutFlags="PositionProportional"/>
-            
-            
-            <Image x:Name="SUN_DAWN"/>
-            <Image x:Name="SUN_DAY"/>
-            <Image x:Name="SUN_DUSK"/>
-            <Image x:Name="MOON"/>
-            <Image x:Name="CLOUDS_FAR"/>
-            <Image x:Name="MOUNTAINS"/>
-            <Image x:Name="COULDS_CLOSE"/>
-            <Image x:Name="FOG_FAR"/>
-            <Image x:Name="MEADOWS"/>
-            <Image x:Name="FOG_CLOSE"/>
-            <Image x:Name="TREE"/>
+        -->
+
         </AbsoluteLayout>
-        <Label FontSize="24" Text="{Binding weather_data.current.app_temp, StringFormat='feels like {0:F1}°'}"/>
-        <Grid Padding="4" RowDefinitions="Auto,*">
-            <CollectionView ItemsSource="{Binding HourlyForecasts}"
-                            ItemsLayout="HorizontalList"
-                            SelectionMode="Single"
-                            SelectionChanged="OnHourSelected">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Frame Margin="5"
-                           Padding="10"
-                           CornerRadius="8"
-                           BackgroundColor="{Binding IsSelected, Converter={StaticResource SelectedColorConverter}}">
-                            <StackLayout>
-                                <Label FontSize="24" Text="{Binding Time, StringFormat='{0:HH:mm}'}"
-                                   HorizontalOptions="Center"/>
-                                <Label FontSize="24" Text="{Binding Temp, StringFormat='{0}°'}"
-                                   HorizontalOptions="Center"/>
-                            </StackLayout>
-                            <Frame.GestureRecognizers>
-                                <TapGestureRecognizer CommandParameter="{Binding .}"
-                                                  Tapped="OnHourTapped"/>
-                            </Frame.GestureRecognizers>
-                        </Frame>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+
+        <Grid Grid.Row="1" ColumnDefinitions="*,*" RowDefinitions="*,*" ColumnSpacing="10" RowSpacing="10">
+            <Frame Grid.Row="0" Grid.Column="0"  CornerRadius="20" Padding="-1" IsClippedToBounds="True">
+                <HorizontalStackLayout BackgroundColor="#303030" Padding="10" Spacing="10">
+                    <Image Source="Icons/wind.png" HeightRequest="40"/>
+                    <VerticalStackLayout>
+                        <Label FontSize="14" Text="Wind Gusts" TextColor="#ffffff" FontFamily="CaviarDreams"/>
+                        <Label FontSize="20" Text="{Binding current.wind_gusts, StringFormat='{0}Kmh', FallbackValue='apptemp'}" FontFamily="CaviarDreams" TextColor="#ffffff"/>
+                    </VerticalStackLayout>
+                </HorizontalStackLayout>
+            </Frame>
+            <Frame Grid.Row="0" Grid.Column="1"  CornerRadius="20" Padding="-1" IsClippedToBounds="True">
+                <HorizontalStackLayout BackgroundColor="#303030" Padding="10" Spacing="10">
+                    <Image Source="Icons/clouds.png" HeightRequest="40"/>
+                    <VerticalStackLayout VerticalOptions="Center">
+                        <Label FontSize="14" Text="cloud cover" TextColor="#ffffff" FontFamily="CaviarDreamsB"/>
+                        <Label FontSize="16" Text="{Binding current.cloud, StringFormat='{0}%', FallbackValue='apptemp'}" FontFamily="CaviarDreamsB" TextColor="#eeeeee"/>
+                    </VerticalStackLayout>
+                </HorizontalStackLayout>
+            </Frame>
+            <Frame Grid.Row="1" Grid.Column="0"  CornerRadius="20" Padding="-1" IsClippedToBounds="True">
+                <HorizontalStackLayout BackgroundColor="#303030" Padding="10" Spacing="10">
+                    <Image Source="Icons/hygrometer.png" HeightRequest="40"/>
+                    <VerticalStackLayout>
+                        <Label FontSize="16" Text="Humidity" TextColor="#ffffff" FontFamily="CaviarDreams"/>
+                        <Label FontSize="16" Text="{Binding current.humidity, StringFormat='{0}%', FallbackValue='apptemp'}" FontFamily="CaviarDreamsB" TextColor="#eeeeee"/>
+                    </VerticalStackLayout>
+                </HorizontalStackLayout>
+            </Frame>
+            <Frame Grid.Row="1" Grid.Column="1"  CornerRadius="20" Padding="-1" IsClippedToBounds="True">
+                <HorizontalStackLayout BackgroundColor="#303030" Padding="10" Spacing="10">
+                    <Image Source="Icons/rain.png" HeightRequest="40"/>
+                    <VerticalStackLayout>
+                        <Label FontSize="12" Text="Chance of Rain" TextColor="#ffffff" FontFamily="CaviarDreamsB"/>
+                        <Label FontSize="20" Text="{Binding current.precip, StringFormat='{0}%', FallbackValue='apptemp'}" FontFamily="CaviarDreams" TextColor="#ffffff"/>
+                    </VerticalStackLayout>
+                </HorizontalStackLayout>
+            </Frame>
         </Grid>
 
 
-        <HorizontalStackLayout>
+        <Grid Grid.Row="2" ColumnDefinitions="*,*" ColumnSpacing="10">
+            <Button Text="See Today"></Button>
+            <Button Grid.Column="1" Text="See This Week"></Button>
+        </Grid>
 
-        </HorizontalStackLayout>
-    </VerticalStackLayout>
+
+        <Frame Grid.Row="3" CornerRadius="20" Padding="-1" IsClippedToBounds="True">
+            <Grid Background="#404040">
+
+            </Grid>
+        </Frame>
+
+    </Grid>
 </ContentPage>

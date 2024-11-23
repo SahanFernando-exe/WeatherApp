@@ -10,38 +10,69 @@ namespace WeatherApp;
 
 public partial class Today : ContentPage
 {
-
-
-    public ObservableCollection<HourlyForecast> HourlyForecasts { get; set; }
     public WeatherData weather_data { get; set; }
     private Meteo_API Weather_API;
     public HourlyForecast SelectedHour { get; set; }
+    public ObservableCollection<WeatherData> HourlyForecasts { get; set; }
 
     public Today()
-	{
-		InitializeComponent();
-        Weather_API = new Meteo_API();
-        HourlyForecasts = new ObservableCollection<HourlyForecast>();
-        weather_data = new WeatherData();
-        LoadHourlyData();
-        BindingContext = this;
-    }
-
-    private void UpdateUI(WeatherData weather_data)
     {
-        //city
-        //apparent temperature
-        //cloud cover
-        //wind
-        //temperature
-        //humidity
-        //rain chance
-        //visibility
+        InitializeComponent();
+        Weather_API = new Meteo_API();
+        weather_data = new WeatherData();
+        BindingContext = weather_data;
+        FetchWeatherData();
+        HourlyForecasts = new ObservableCollection<WeatherData>();
+        //LoadHourlyData();
+    }
 
+    private async void FetchWeatherData()
+    {
+        weather_data = await Weather_API.GetWeatherDataAsync("gfas");
+        BindingContext = weather_data;
     }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /*
     private async void LoadHourlyData()
     {
         weather_data = await Weather_API.GetWeatherDataAsync("gfas");
@@ -55,8 +86,12 @@ public partial class Today : ContentPage
                 Temp = weather_data.hourly.temp[i]
             });
         }
-        Console.WriteLine(weather_data.lat);
     }
+
+    */
+
+
+
 
     private void OnHourSelected(object sender, SelectionChangedEventArgs e)
     {
@@ -67,6 +102,14 @@ public partial class Today : ContentPage
         }
     }
 
+
+
+
+
+
+
+
+
     private void OnHourTapped(object sender, TappedEventArgs e)
     {
         if (e.Parameter is HourlyForecast tappedHour)
@@ -76,22 +119,14 @@ public partial class Today : ContentPage
     }
 }
 
-public class HourlyForecast : INotifyPropertyChanged
+
+
+
+
+
+
+public class HourlyForecast
 {
     public DateTime Time { get; set; }
     public float Temp { get; set; }
-
-    private bool isSelected;
-
-    public bool IsSelected
-    {
-        get => isSelected;
-        set
-        {
-            isSelected = value;
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsSelected)));
-        }
-    }
-
-    public event PropertyChangedEventHandler PropertyChanged;
 }
