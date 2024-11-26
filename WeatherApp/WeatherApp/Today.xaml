@@ -16,7 +16,7 @@
     
     -->
 
-    <Grid RowDefinitions="*,Auto,Auto,Auto" RowSpacing="10" Padding="10" BackgroundColor="#202020">
+    <Grid RowDefinitions="*,*,*,75" RowSpacing="10" Padding="10" BackgroundColor="#202020">
         <AbsoluteLayout VerticalOptions="FillAndExpand" MinimumHeightRequest="300">
             <Frame CornerRadius="40" 
                     Padding="-1"
@@ -101,10 +101,34 @@
 
 
         <Frame Grid.Row="3" CornerRadius="20" Padding="-1" IsClippedToBounds="True">
-            <Grid Background="#404040">
+            <Grid ColumnDefinitions="*,*,*,*" ColumnSpacing="1">
+                <Grid.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <GradientStopCollection>
+                            <GradientStop Offset="0.2" Color="#303030"/>
+                            <GradientStop Offset="0.5" Color="#606060"/>
+                            <GradientStop Offset="0.8" Color="#303030"/>
+                        </GradientStopCollection>
+                    </LinearGradientBrush>
+                </Grid.Background>
+
+                <ImageButton Grid.Column="0" CornerRadius="0" BackgroundColor="#303030" Source="Icons/weather_history.svg">
+
+                </ImageButton>
+
+                <ImageButton Grid.Column="1" CornerRadius="0" BackgroundColor="#303030" Source="Icons/today.svg">
+
+                </ImageButton>
+
+                <ImageButton Grid.Column="2" CornerRadius="0" BackgroundColor="#303030" Source="Icons/week.svg">
+
+                </ImageButton>
+
+                <ImageButton Grid.Column="3" CornerRadius="0" BackgroundColor="#303030" Source="Icons/settings.svg">
+
+                </ImageButton>
 
             </Grid>
         </Frame>
-
     </Grid>
 </ContentPage>

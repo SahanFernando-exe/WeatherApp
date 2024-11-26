@@ -1,7 +1,7 @@
 pages:
-- right now
 - today
 - this week
+- weather history
 - settings
 
 api:
