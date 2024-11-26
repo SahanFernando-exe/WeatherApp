@@ -16,7 +16,7 @@
     
     -->
 
-    <Grid RowDefinitions="*,*,*,75" RowSpacing="10" Padding="10" BackgroundColor="#202020">
+    <Grid RowDefinitions="*,Auto,Auto,Auto" RowSpacing="10" Padding="10" BackgroundColor="#202020">
         <AbsoluteLayout VerticalOptions="FillAndExpand" MinimumHeightRequest="300">
             <Frame CornerRadius="40" 
                     Padding="-1"
@@ -93,15 +93,8 @@
             </Frame>
         </Grid>
 
-
-        <Grid Grid.Row="2" ColumnDefinitions="*,*" ColumnSpacing="10">
-            <Button Text="See Today"></Button>
-            <Button Grid.Column="1" Text="See This Week"></Button>
-        </Grid>
-
-
         <Frame Grid.Row="3" CornerRadius="20" Padding="-1" IsClippedToBounds="True">
-            <Grid ColumnDefinitions="*,*,*,*" ColumnSpacing="1">
+            <Grid ColumnDefinitions="*,*,*,*" ColumnSpacing="1" MaximumHeightRequest="80">
                 <Grid.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                         <GradientStopCollection>
@@ -111,22 +104,14 @@
                         </GradientStopCollection>
                     </LinearGradientBrush>
                 </Grid.Background>
+ 
+                <ImageButton Grid.Column="0" CornerRadius="0" BackgroundColor="#303030" Source="Icons/net.svg" Padding="20" Clicked="ToNet"/>
 
-                <ImageButton Grid.Column="0" CornerRadius="0" BackgroundColor="#303030" Source="Icons/weather_history.svg">
+                <ImageButton Grid.Column="1" CornerRadius="0" BackgroundColor="#404040" Source="Icons/home.svg" Padding="20"/>
 
-                </ImageButton>
+                <ImageButton Grid.Column="2" CornerRadius="0" BackgroundColor="#303030" Source="Icons/calendar.svg" Padding="20" Clicked="ToWeek"/>
 
-                <ImageButton Grid.Column="1" CornerRadius="0" BackgroundColor="#303030" Source="Icons/today.svg">
-
-                </ImageButton>
-
-                <ImageButton Grid.Column="2" CornerRadius="0" BackgroundColor="#303030" Source="Icons/week.svg">
-
-                </ImageButton>
-
-                <ImageButton Grid.Column="3" CornerRadius="0" BackgroundColor="#303030" Source="Icons/settings.svg">
-
-                </ImageButton>
+                <ImageButton Grid.Column="3" CornerRadius="0" BackgroundColor="#303030" Source="Icons/settings.svg" Padding="20" Clicked="ToSettings"/>
 
             </Grid>
         </Frame>

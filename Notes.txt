@@ -39,3 +39,6 @@ inspiration:
 - https://dribbble.com/shots/15342976-Weather-forecast-Mobile-App-Deisign
 - https://dribbble.com/shots/20331883-Concept-Weather
 - https://dribbble.com/shots/17996688-Weather-App
+
+icons:
+- https://www.svgrepo.com/svg/13688/settings
