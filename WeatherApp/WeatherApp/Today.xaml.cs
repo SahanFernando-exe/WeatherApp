@@ -1,11 +1,3 @@
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Net.Http;
-using System.Text.Json;
-
-using System.Net.Http.Json;
-
-
 namespace WeatherApp;
 
 public partial class Today : ContentPage
@@ -13,17 +5,16 @@ public partial class Today : ContentPage
     private WeatherData weather_data { get; set; }
     private Meteo_API Weather_API;
 
-    public Today(WeatherData? wdata)
+    public Today()
     {
         InitializeComponent();
-        Weather_API = new Meteo_API();
-        weather_data = new WeatherData();
-        BindingContext = weather_data;
-        FetchWeatherData();
+        LoadData();
     }
 
-    private async void FetchWeatherData()
+    private async Task LoadData()
     {
+        Weather_API = new Meteo_API();
+        weather_data = new WeatherData();
         weather_data = await Weather_API.GetWeatherDataAsync("gfas");
         BindingContext = weather_data;
     }
@@ -35,12 +26,12 @@ public partial class Today : ContentPage
 
     private void ToWeek(object sender, EventArgs e)
     {
-        Navigation.PushAsync(new ThisWeek(weather_data));
+        Navigation.PushAsync(new ThisWeek());
     }
 
     private async void ToSettings(object sender, EventArgs e)
     {
-
+        Navigation.PushAsync(new Settings());
     }
 
 }

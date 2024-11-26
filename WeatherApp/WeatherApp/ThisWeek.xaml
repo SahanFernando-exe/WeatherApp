@@ -106,23 +106,15 @@
                         </LinearGradientBrush>
                     </Grid.Background>
 
-                    <ImageButton Grid.Column="0" CornerRadius="0" BackgroundColor="#303030" Source="Icons/net.svg" Padding="20">
+                <ImageButton Grid.Column="0" CornerRadius="0" BackgroundColor="#303030" Source="Icons/net.svg" Padding="20" Clicked="ToNet"/>
 
-                    </ImageButton>
+                <ImageButton Grid.Column="1" CornerRadius="0" BackgroundColor="#303030" Source="Icons/home.svg" Padding="20" Clicked="ToToday"/>
 
-                    <ImageButton Grid.Column="1" CornerRadius="0" BackgroundColor="#303030" Source="Icons/home.svg" Padding="20">
+                <ImageButton Grid.Column="2" CornerRadius="0" BackgroundColor="#404040" Source="Icons/calendar.svg" Padding="20"/>
 
-                    </ImageButton>
+                <ImageButton Grid.Column="3" CornerRadius="0" BackgroundColor="#303030" Source="Icons/settings.svg" Padding="20" Clicked="ToSettings"/>
 
-                    <ImageButton Grid.Column="2" CornerRadius="0" BackgroundColor="#404040" Source="Icons/calendar.svg" Padding="20">
-
-                    </ImageButton>
-
-                    <ImageButton Grid.Column="3" CornerRadius="0" BackgroundColor="#303030" Source="Icons/settings.svg" Padding="20">
-
-                    </ImageButton>
-
-                </Grid>
+            </Grid>
             </Frame>
         </Grid>
     </ContentPage>

@@ -63,7 +63,9 @@
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
 	</ItemGroup>
 
-	<ItemGroup>	  <MauiXaml Update="ThisWeek.xaml">
+	<ItemGroup>	  <MauiXaml Update="Settings.xaml">
+  <Generator>MSBuild:Compile</Generator>
+</MauiXaml>	  <MauiXaml Update="ThisWeek.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 
